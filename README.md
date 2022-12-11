@@ -119,7 +119,7 @@ Application Programming Interface(API)，泛指電腦透過傳遞媒介達到介
 
 這邊使用JavaScript的後端框架(Node.js)中的Express.js輕量化服務器套件來建立三個路由的API
 
-```javascript=
+```javascript
 const express = require("express");
 const app = express();
 
@@ -145,7 +145,7 @@ app.listen(3001, () => {
 ### Parameter
 會在網址後方使用`:`綁定定義參數
 
-```javascript=
+```javascript
 app.get("/user/:id", (req, res) => {
   res.json({ userId: req.params.id });
 });
@@ -164,14 +164,14 @@ app.get("/search", (req, res) => {
 
 ### Body
 利用HTTP中Request的body帶入我們所需要的JSON格式
-```javascript=
+```javascript
 app.post("/register", (req, res) => {
   res.json({ body: req.body });
 });
 ```
 
 而Express.js還需要引入解構`application/json`格式的函式
-```javascript=
+```javascript
 app.use(express.json());
 ```
 ![](https://i.imgur.com/CJSq9Co.png)
