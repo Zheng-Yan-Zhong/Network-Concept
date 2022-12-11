@@ -5,6 +5,8 @@
   * [HTTP flow](#HTTP-Flow)
   * [HTTP Methods](#HTTP-Methods)
   * [HTTP Request](#HTTP-Request)
+    * [HTTP Header](#HTTP-Header)
+    * [HTTP Body](#HTTP-Body})
   * [HTTP Response](#HTTP-Response)
   * [HTTP General](#HTTP-General)
 * [HTTPs](#HTTPs)
@@ -15,6 +17,9 @@
   * [CORS]
   * [DDOS]
 * [API](#API)
+  * [Query]
+  * [Parameter]
+  * [Body]
 * [Auth](#)
 * [URI](#URI)
 * [Domain](#Domain)
@@ -76,6 +81,17 @@ Request URL中向 https://www.google.com/search 請求了一個q=(query=)，並�
 
 ## HTTP Request
 
+### HTTP Header
+
+
+
+|  |  |  |
+| -------- | -------- | -------- |
+| Accept     | 接收回應的內容類型     | application/json、text/plain     |
+
+
+### HTTP Body
+
 ---
 
 ## HTTP Response
@@ -94,6 +110,72 @@ Request URL中向 https://www.google.com/search 請求了一個q=(query=)，並�
 # Situation of Network
 
 ---
+
+# API
+Application Programming Interface(API)，泛指電腦透過傳遞媒介達到介接資料的方式。
+
+由於前後端分離的概念，促使資料與畫面切割，也可以讓邏輯不用因為畫面需要更改而重寫。
+
+
+這邊使用JavaScript的後端框架(Node.js)中的Express.js輕量化服務器套件來建立三個路由的API
+
+```javascript=
+const express = require("express");
+const app = express();
+
+app.get("/", (req, res) => {
+  res.send("<h3>Paradise</h3>");
+});
+app.get("/user/:id", (req, res) => {
+  res.json({ userId: req.params.id });
+});
+
+app.get("/search", (req, res) => {
+  res.json({ query: req.query });
+});
+
+app.listen(3001, () => {
+  console.log("running");
+});
+
+```
+
+![](https://i.imgur.com/taQ5jp6.png)
+
+### Parameter
+會在網址後方使用`:`綁定定義參數
+
+```javascript=
+app.get("/user/:id", (req, res) => {
+  res.json({ userId: req.params.id });
+});
+```
+
+![](https://i.imgur.com/52aVwTZ.png)
+
+### Query
+會在網址後方帶入`?`+`query=參數`
+```javascript=
+app.get("/search", (req, res) => {
+  res.json({ query: req.query });
+});
+```
+![](https://i.imgur.com/kOq2FA7.png)
+
+### Body
+利用HTTP中Request的body帶入我們所需要的JSON格式
+```javascript=
+app.post("/register", (req, res) => {
+  res.json({ body: req.body });
+});
+```
+
+而Express.js還需要引入解構`application/json`格式的函式
+```javascript=
+app.use(express.json());
+```
+![](https://i.imgur.com/CJSq9Co.png)
+
 
 # URI 
 URI是通稱我們所謂的網址列或是網域的一個大概念
